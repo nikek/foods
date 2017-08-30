@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<StateContainer
+  state={
+    Object {
+      "user": Object {
+        "name": "Sherlock",
+        "photoUrl": "http://path-to-img.url",
+      },
+    }
+  }
+>
+  <CerebralWrapping_Navbar>
+    <Navbar
+      homeRouted={[Function]}
+      user={
+        Object {
+          "name": "Sherlock",
+          "photoUrl": "http://path-to-img.url",
+        }
+      }
+      userSettingsRouted={[Function]}
+    >
+      <nav
+        className="navbar navbar-dark bg-dark"
+      >
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+          type="button"
+        >
+          Home
+        </button>
+        <div
+          className="navbar-brand"
+        >
+          Foods
+        </div>
+        <img
+          alt=""
+          className="rounded-circle border border-light"
+          height="33"
+          onClick={[Function]}
+          src="http://path-to-img.url"
+          title="Sherlock"
+          width="33"
+        />
+      </nav>
+    </Navbar>
+  </CerebralWrapping_Navbar>
+</StateContainer>
+`;
