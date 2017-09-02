@@ -18,8 +18,7 @@ export default connect(
           <button
             className="btn btn-primary"
             type="button"
-            onClick={p.homeRouted}
-          >
+            onClick={p.homeRouted}>
             Home
           </button>
           <div className="navbar-brand">Foods</div>
