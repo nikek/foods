@@ -1,4 +1,4 @@
-import { totalNutrition } from './calculations.js'
+import { totalNutrition, nutritionPerAmount } from './calculations.js'
 
 describe('totalNutrition', () => {
   it('returns the same values if list contains one obj', () => {
@@ -141,5 +141,88 @@ describe('totalNutrition', () => {
     const total = totalNutrition(list)
 
     expect(total).toEqual(expectedTotal)
+  })
+})
+
+describe('nutritionPerAmount', () => {
+  it('should return correct nutrition', () => {
+    const food = {
+      nutritionPer: {
+        value: 100,
+        unit: 'g'
+      },
+      nutrition: {
+        energi: 1,
+        carbs: 2,
+        fat: 3,
+        protein: 4,
+        fiber: 5
+      }
+    }
+    const amount = {
+      value: 200,
+      unit: 'g'
+    }
+    const expectedNutrition = {
+      energi: 2,
+      carbs: 4,
+      fat: 6,
+      protein: 8,
+      fiber: 10
+    }
+    expect(nutritionPerAmount(food, amount)).toEqual(expectedNutrition)
+  })
+
+  it('should handle different units of the same type', () => {
+    const food = {
+      nutritionPer: {
+        value: 100,
+        unit: 'g'
+      },
+      nutrition: {
+        energi: 1,
+        carbs: 2,
+        fat: 3,
+        protein: 4,
+        fiber: 5
+      }
+    }
+    const amount = {
+      value: 0.2,
+      unit: 'kg'
+    }
+    const expectedNutrition = {
+      energi: 2,
+      carbs: 4,
+      fat: 6,
+      protein: 8,
+      fiber: 10
+    }
+    expect(nutritionPerAmount(food, amount)).toEqual(expectedNutrition)
+  })
+  it('should handle unset properties of nutrition object', () => {
+    const food = {
+      nutritionPer: {
+        value: 100,
+        unit: 'g'
+      },
+      nutrition: {
+        energi: 1,
+        carbs: 2,
+        fat: 3
+      }
+    }
+    const amount = {
+      value: 0.2,
+      unit: 'kg'
+    }
+    const expectedNutrition = {
+      energi: 2,
+      carbs: 4,
+      fat: 6,
+      protein: 0,
+      fiber: 0
+    }
+    expect(nutritionPerAmount(food, amount)).toEqual(expectedNutrition)
   })
 })

@@ -2,6 +2,26 @@
 
 ## food
 
+information about
+### Nutrition info
+Actual nutrition per 100g or 100ml.
+Default measurements for this food.
+If the food can be split into pieces or standard servings, what is the ratio of 100g or 100ml
+
+### Meta
+ID
+Name, different languages?
+Type of food regarding how nutrition was calculated
+  example: enum
+  ATOM - this has no ingredients and has its own nutritional facts (eg. spinach)
+  SELFSET - it has ingredients, but has its own nutritional facts (eg. )
+  CALCULATED - it has ingredients and nutritional facts come from combining these.
+
+### Ingredients
+What does this food consist of.
+
+
+
 
 ```js
 foods: [{
@@ -68,18 +88,24 @@ meals: [
     ingredients: [
       {
         id: 1,
-        amount: 400,
-        unit: "g"
+        amount: {
+          value: 400,
+          unit: "g"
+        }
       },
       {
         id: 2,
-        amount: 5,
-        unit: "dl"
+        amount: {
+          value: 5,
+          unit: "dl"
+        }
       },
       {
         id: 3,
-        amount: 2,
-        unit: "pieces"
+        amount: {
+          value: 2,
+          unit: "pieces"
+        }
       }
     ]
   }
