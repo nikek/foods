@@ -11,9 +11,11 @@ export default connect(
     render() {
       const p = this.props
       return (
-        <div className="btn-group">
-          <div>{p.user.name}</div>
-          <button className="btn-block" type="button" onClick={p.logout}>
+        <div>
+          <button
+            className="btn btn-default btn-block"
+            type="button"
+            onClick={p.logout}>
             Sign Out
           </button>
         </div>

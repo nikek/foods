@@ -9,10 +9,12 @@ import Navbar from './Navbar'
 import SignInPage from './SignInPage'
 import HomePage from './HomePage'
 import UserSettingsPage from './UserSettingsPage'
+import AddMealPage from './AddMealPage'
 
 const pageMapping = {
   home: HomePage,
-  userSettings: UserSettingsPage
+  userSettings: UserSettingsPage,
+  addMeal: AddMealPage
 }
 
 export default connect(

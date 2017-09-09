@@ -16,7 +16,7 @@ export default module => {
         when(props`user`),
         {
           true: [listenForData],
-          false: [set(state`app.number`, null)]
+          false: []
         }
       ]
     }

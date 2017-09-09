@@ -1,8 +1,12 @@
+import Decimal from 'decimal.js-light'
+
+import allFoods from './allFoods.js'
+
 // returns an object with all nutrition properties with value 0
 
 function getEmptyNutritionObj() {
   return {
-    energi: 0,
+    energy: 0,
     carbs: 0,
     fat: 0,
     protein: 0,
@@ -23,7 +27,7 @@ function sumMerge(a, b) {
   }, {})
 }
 
-export function totalNutrition(listOfNutritionObjs) {
+export function calcTotalNutrition(listOfNutritionObjs) {
   return listOfNutritionObjs.reduce(sumMerge, getEmptyNutritionObj())
 }
 
@@ -43,25 +47,59 @@ function areSameUnitType(unitA, unitB) {
 }
 
 function nutritionMultiplier(nutrition, multi) {
+  const m = new Decimal(multi)
   return Object.keys(nutrition).reduce((newNutrition, fact) => {
-    newNutrition[fact] = nutrition[fact] * multi
+    newNutrition[fact] = m.mul(nutrition[fact]).toNumber()
     return newNutrition
-  }, {})
+  }, getEmptyNutritionObj())
 }
 
-export function nutritionPerAmount(food, amount) {
-  if (areSameUnitType(food.nutritionPer.unit, amount.unit)) {
-    const nutritionRatio =
-      amount.value * unitInfo[amount.unit].ratio / food.nutritionPer.value
+export function nutritionPerAmount({ food, amount }) {
+  return nutritionMultiplier(food.nutrition, calcFoodMultiplier(amount))
+  // if (areSameUnitType(food.nutritionPer.unit, amount.unit)) {
 
-    return Object.assign(
-      getEmptyNutritionObj(),
-      nutritionMultiplier(food.nutrition, nutritionRatio)
-    )
-  } else if (food.density) {
-    // TODO
-    // we can convert between unit types
-  } else {
-    // choose a different amount unit!
+  // } else if (food.density) {
+  //   // TODO
+  //   // we can convert between unit types
+  // } else {
+  //   // choose a different amount unit!
+  // }
+}
+
+function calcFoodMultiplier(amount) {
+  return new Decimal(amount.value)
+    .mul(unitInfo[amount.unit].ratio)
+    .div(100)
+    .toNumber()
+}
+
+// Will have to look through a DB or something
+function materializeFoodById(ingr) {
+  return {
+    food: allFoods[ingr.id],
+    amount: ingr.amount
+  }
+}
+
+function normalizeNutrition(nutrition, amount) {
+  return nutritionMultiplier(nutrition, 1 / calcFoodMultiplier(amount))
+}
+
+export function getNormalizedNutritionOfRecipe(food) {
+  if (food.nutritionSource === 'CALCULATED_FROM_INGREDIENTS') {
+    // we may continue
+
+    // Get nutrition for each food item in an array
+    // by fetching the food data by ingredient id
+    // and map it through nutritionPerAmount
+    // reduce it down to a nutrition object by
+    // summing together all ingredients by fact into
+    const totalNutrition = food.recipe.ingredients
+      .map(materializeFoodById)
+      .map(nutritionPerAmount)
+      .reduce(sumMerge, getEmptyNutritionObj())
+
+    // Normalize nutrition
+    return normalizeNutrition(totalNutrition, food.recipe.totalAmount)
   }
 }

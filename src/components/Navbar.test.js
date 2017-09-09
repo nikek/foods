@@ -15,6 +15,5 @@ it('renders without crashing', () => {
     </StateContainer>
   )
 
-  expect(wrapper.find('img').length).toBe(1)
   expect(toJson(wrapper)).toMatchSnapshot()
 })

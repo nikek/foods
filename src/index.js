@@ -7,11 +7,13 @@ import firebase from 'firebase'
 
 import AppModule from './modules/AppModule.js'
 import UserModule from './modules/UserModule.js'
+import IntakeModule from './modules/IntakeModule.js'
 import setupAuthListener from './setupAuthListener'
 import FIRConfig from './firebase-config'
 
 import App from './components/App.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './style.css'
 
 import registerServiceWorker from './registerServiceWorker'
 registerServiceWorker()
@@ -46,7 +48,8 @@ const controller = Controller({
   providers: [c => (c.firebase = firebase) && c],
   modules: {
     app: AppModule,
-    user: UserModule
+    user: UserModule,
+    intake: IntakeModule
   }
 })
 

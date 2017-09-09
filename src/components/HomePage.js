@@ -5,12 +5,20 @@ import { state, signal } from 'cerebral/tags'
 export default connect(
   {
     user: state`user`,
-    addMealRouter: signal`app.addMealRouted`
+    addMealRouted: signal`app.addMealRouted`
   },
   class HomePage extends Component {
     render() {
       const p = this.props
-      return <div>HOME {p.user.name}</div>
+      const addMealRouted = () => p.addMealRouted()
+      return (
+        <div>
+          <h2>HOME</h2>
+          <button className="btn btn-success btn-block" onClick={addMealRouted}>
+            Add Meal
+          </button>
+        </div>
+      )
     }
   }
 )

@@ -66,7 +66,7 @@ foods: [{
     unit: "g"
   },
   nutrition: {
-    energi: 39,
+    energy: 39,
     carbs: 7.3,
     fat: 0.1,
     protein: 1.19,
@@ -84,30 +84,36 @@ meals: [
   {
     id: 321,
     name: "Spinach soup",
-    defaultMeasureUnits: ["g", "pieces:onion:onions"],
-    ingredients: [
-      {
-        id: 1,
-        amount: {
-          value: 400,
-          unit: "g"
-        }
+    defaultMeasureUnits: ["dl"],
+    recipe: {
+      totalAmount: {
+        value: 5.6,
+        unit: "dl"
       },
-      {
-        id: 2,
-        amount: {
-          value: 5,
-          unit: "dl"
+      ingredients: [
+        {
+          id: 1,
+          amount: {
+            value: 400,
+            unit: "g"
+          }
+        },
+        {
+          id: 2,
+          amount: {
+            value: 5,
+            unit: "dl"
+          }
+        },
+        {
+          id: 3,
+          amount: {
+            value: 220,
+            unit: "g"
+          }
         }
-      },
-      {
-        id: 3,
-        amount: {
-          value: 2,
-          unit: "pieces"
-        }
-      }
-    ]
+      ]
+    }
   }
 ]
 
