@@ -1,5 +1,7 @@
 import { state, props } from 'cerebral/tags'
 import { set, when, push } from 'cerebral/operators'
+import logMeal from './actions/logMeal'
+import stageFood from './actions/stageFood'
 
 function createMealFromStage({ state, props }) {
   props.meal = {
@@ -60,14 +62,16 @@ export default module => {
       ]
     },
     signals: {
-      addIntake: [push(state`intake.stage`, props`intake`)],
+      setStage: [set(state`intake.stage`, props`stage`)],
+      addIntake: [stageFood],
       addMeal: [
         when(state`intake.stage.length`),
         {
           true: [
             createMealFromStage,
             push(state`intake.recent`, props`meal`),
-            set(state`intake.stage`, [])
+            set(state`intake.stage`, []),
+            logMeal
           ],
           false: [set(state`error`, 'No food in meal')]
         }

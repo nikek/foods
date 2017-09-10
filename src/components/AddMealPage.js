@@ -8,8 +8,8 @@ const StagedFood = ({ list }) => (
   <div>
     <ul>
       {list &&
-        list.map((f, i) => (
-          <li key={'StagedFood-' + i}>{allFoods[f.id].name}</li>
+        Object.keys(list).map((key, i) => (
+          <li key={'StagedFood-' + i}>{allFoods[list[key].id].name}</li>
         ))}
     </ul>
   </div>
@@ -33,7 +33,8 @@ export default connect(
           <h2>Add Meal</h2>
           {p.error && <div className="alert alert-info">{p.error}</div>}
           <StagedFood list={p.stagedFood} />
-          {!!p.stagedFood.length && (
+          {p.stagedFood &&
+          !!p.stagedFood.length && (
             <button
               className="btn btn-block btn-primary"
               type="button"

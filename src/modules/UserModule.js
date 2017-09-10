@@ -3,21 +3,23 @@ import { set, when } from 'cerebral/operators'
 
 import signIn from './actions/signIn.js'
 import signOut from './actions/signOut.js'
-import listenForData from './actions/listenForData.js'
+import { startDataSub, stopDataSub } from './actions/listenForData.js'
 
 export default module => {
   return {
     state: null,
     signals: {
-      signInClicked: [signIn, set(state`app.currentPage`, 'home')],
+      signInClicked: [signIn],
       signOutClicked: [signOut],
-      setUser: [
+      loginComplete: [
         set(state`${module.path}`, props`user`),
-        when(props`user`),
-        {
-          true: [listenForData],
-          false: []
-        }
+        set(state`app.currentPage`, 'home'),
+        startDataSub
+      ],
+      logoutComplete: [
+        stopDataSub,
+        set(state`${module.path}`, null),
+        set(state`app.currentPage`, 'home')
       ]
     }
   }

@@ -63,7 +63,11 @@ const controller = Controller({
   }
 })
 
-setupAuthListener(firebase, controller.getSignal('user.setUser'))
+setupAuthListener(
+  firebase,
+  controller.getSignal('user.loginComplete'),
+  controller.getSignal('user.logoutComplete')
+)
 
 render(
   <Container controller={controller}>

@@ -1,14 +1,18 @@
-export default function setupAuthListener(firebase, setUser) {
+export default function setupAuthListener(
+  firebase,
+  loginComplete,
+  logoutComplete
+) {
   firebase.auth().onAuthStateChanged(userIn => {
-    setUser({
-      user: userIn
-        ? {
+    userIn
+      ? loginComplete({
+          user: {
             name: userIn.displayName,
             email: userIn.email,
             photoUrl: userIn.photoURL,
             uid: userIn.uid
           }
-        : null
-    })
+        })
+      : logoutComplete()
   })
 }
