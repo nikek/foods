@@ -14,7 +14,7 @@ export default connect(
       const p = this.props
 
       return (
-        <nav className="navbar navbar-dark bg-dark">
+        <nav className="navbar navbar-dark">
           <button
             className="btn btn-primary"
             type="button"

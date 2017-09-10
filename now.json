@@ -1,0 +1,7 @@
+{
+  "env": {
+    "REACT_APP_FIR_APIKEY": "@foods-fir-apikey",
+    "REACT_APP_FIR_PROJECT_ID": "@foods-fir-project-id",
+    "REACT_APP_FIR_MESSAGING_SENDER_ID": "@foods-fir-messaging-sender-id"
+  }
+}

@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import React from 'react'
 import { render } from 'react-dom'
 import { Controller } from 'cerebral'
@@ -9,15 +10,24 @@ import AppModule from './modules/AppModule.js'
 import UserModule from './modules/UserModule.js'
 import IntakeModule from './modules/IntakeModule.js'
 import setupAuthListener from './setupAuthListener'
-import FIRConfig from './firebase-config'
 
 import App from './components/App.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './style.css'
+import './google_g.svg'
 
 import registerServiceWorker from './registerServiceWorker'
 registerServiceWorker()
 
+const projId = process.env.REACT_APP_FIR_PROJECT_ID
+const FIRConfig = {
+  apiKey: process.env.REACT_APP_FIR_APIKEY,
+  authDomain: `${projId}.firebaseapp.com`,
+  databaseURL: `https://${projId}.firebaseio.com`,
+  projectId: `${projId}`,
+  storageBucket: `${projId}.appspot.com`,
+  messagingSenderId: process.env.REACT_APP_FIR_MESSAGING_SENDER_ID
+}
 // Initialize Firebase
 firebase.initializeApp(FIRConfig)
 
